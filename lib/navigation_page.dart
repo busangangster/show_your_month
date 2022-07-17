@@ -1,10 +1,11 @@
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:show_your_month/main.dart';
 import 'package:show_your_month/mypage/my_page.dart';
 import 'package:show_your_month/plantStorage/storage_page.dart';
 import 'package:show_your_month/plantpage/plant_page.dart';
+
+import 'home/home_page.dart';
 
 enum ThemeStyle {
   Dribbble,
@@ -29,7 +30,7 @@ class navigation_page extends StatefulWidget {
 
 class _navigation_pageState extends State<navigation_page> {
   final List<Widget> _children = [
-    HomePage(),
+    home_page(),
     plant_page(),
     storage_Page(),
     my_page()
@@ -68,16 +69,16 @@ class _navigation_pageState extends State<navigation_page> {
       backgroundColor: Colors.white,
       items: [
         CustomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Icon(Icons.home_outlined),
         ),
         CustomNavigationBarItem(
-          icon: Icon(Icons.shopping_cart),
+          icon: Icon(Icons.local_florist),
         ),
         CustomNavigationBarItem(
-          icon: Icon(Icons.lightbulb_outline),
+          icon: Icon(Icons.sensor_window_outlined),
         ),
         CustomNavigationBarItem(
-          icon: Icon(Icons.lightbulb_outline),
+          icon: Icon(Icons.account_circle_outlined),
         ),
       ],
       currentIndex: _currentIndex,
