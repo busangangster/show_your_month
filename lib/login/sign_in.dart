@@ -5,8 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:show_your_month/login/reset_password.dart';
 import 'package:show_your_month/login/rounded_text_formfield.dart';
 import 'package:show_your_month/login/sign_up.dart';
-import 'package:sign_button/create_button.dart';
-import 'package:sign_button/sign_button.dart';
+
 import '../../config.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,11 +41,7 @@ class _SignInState extends State<SignIn> {
                 //Text("Log In",style: TextStyle(fontSize: Config.screenWidth! * 0.08),),
                 SizedBox(height: Config.screenHeight! * 0.02),
                 Column(children: [
-                  Platform.isIOS
-                      ? SizedBox(
-                          height: 30.h,
-                        )
-                      : Container(),
+                  Container(),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Text(
                       '도움',
@@ -74,11 +69,7 @@ class _SignInState extends State<SignIn> {
                     ),
                   ]),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Platform.isIOS
-                        ? SizedBox(
-                            height: 50.h,
-                          )
-                        : Container(),
+                    Container(),
                     Text(
                       '라이큐',
                       style: TextStyle(
@@ -86,11 +77,7 @@ class _SignInState extends State<SignIn> {
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF5B21B6)),
                     ),
-                    Platform.isIOS
-                        ? SizedBox(
-                            height: 50.h,
-                          )
-                        : Container(),
+                    Container(),
                   ]),
                   //SizedBox(height: ScreenUtil().setHeight(9)),
                   Text(
@@ -108,49 +95,46 @@ class _SignInState extends State<SignIn> {
                 ]),
                 SizedBox(height: Config.screenHeight! * 0.04),
 
-                Platform.isIOS
-                    ? Container()
-                    : Column(
-                        children: [
-                          buildTextFormFields(),
-                          Padding(
-                            padding: EdgeInsets.all(0),
-                            // EdgeInsets.symmetric(vertical: Config.screenHeight! * 0.005),
-                            child: Align(
-                              alignment: Alignment(0.8, 0.0),
-                              child: TextButton(
-                                child: Text(
-                                  '비밀번호 찾기',
-                                  style: TextStyle(
-                                    fontSize: ScreenUtil().setSp(14),
-                                    color: Colors.grey,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                                ),
-                                onPressed: () =>
-                                    Get.to(() => const ResetPassword()),
-                                style: ButtonStyle(
-                                  overlayColor: MaterialStateColor.resolveWith(
-                                      (states) => Colors.transparent),
-                                ),
-                              ),
+                Column(
+                  children: [
+                    buildTextFormFields(),
+                    Padding(
+                      padding: EdgeInsets.all(0),
+                      // EdgeInsets.symmetric(vertical: Config.screenHeight! * 0.005),
+                      child: Align(
+                        alignment: Alignment(0.8, 0.0),
+                        child: TextButton(
+                          child: Text(
+                            '비밀번호 찾기',
+                            style: TextStyle(
+                              fontSize: ScreenUtil().setSp(14),
+                              color: Colors.grey,
+                              decoration: TextDecoration.underline,
                             ),
                           ),
-                          SizedBox(
-                            height: 15.h,
+                          onPressed: () => Get.to(() => const ResetPassword()),
+                          style: ButtonStyle(
+                            overlayColor: MaterialStateColor.resolveWith(
+                                (states) => Colors.transparent),
                           ),
-                          ElevatedButton(
-                            child: Text('로그인'),
-                            onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                String email = _emailController.text.trim();
-                                String password = _passwordController.text;
-                                _authController.signIn(email, password);
-                              }
-                            },
-                          ),
-                        ],
+                        ),
                       ),
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    ElevatedButton(
+                      child: Text('로그인'),
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          String email = _emailController.text.trim();
+                          String password = _passwordController.text;
+                          _authController.signIn(email, password);
+                        }
+                      },
+                    ),
+                  ],
+                ),
                 // Platform.isIOS
                 //     ? SignInButton(
                 //         buttonType: ButtonType.google,
@@ -177,23 +161,21 @@ class _SignInState extends State<SignIn> {
                 //       )
                 //     : Container(),
 
-                Platform.isIOS
-                    ? Container()
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('라이큐 회원이 아니신가요? '),
-                          TextButton(
-                            child: const Text(
-                              '회원가입',
-                              style: TextStyle(
-                                color: Color(0xffFFAA00),
-                              ),
-                            ),
-                            onPressed: () => Get.to(() => const SignUp()),
-                          ),
-                        ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('라이큐 회원이 아니신가요? '),
+                    TextButton(
+                      child: const Text(
+                        '회원가입',
+                        style: TextStyle(
+                          color: Color(0xffFFAA00),
+                        ),
                       ),
+                      onPressed: () => Get.to(() => const SignUp()),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
