@@ -10,6 +10,8 @@ class plant_page extends StatefulWidget {
 class _plant_pageState extends State<plant_page> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: Text('plant_page'),
+    );
   }
 }
