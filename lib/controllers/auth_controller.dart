@@ -60,14 +60,14 @@ class AuthController extends GetxController {
             "https://firebasestorage.googleapis.com/v0/b/wegolego-bf94b.appspot.com/o/liveQ_logo.jpg?alt=media&token=8b719a18-60db-4124-ae5e-01a5375d6a1c",
         //    "token": _token,
         "timeRegister": DateTime.now().millisecondsSinceEpoch.toString(),
-        "ask": 0,
-        "help": 0,
-        "getHeart": 0,
-        "feedback": false,
-        //email 로그인에 한하여 이 데이터가 필요하다.
-        "firstTime": true,
-        "notificationOn": true,
-        "frienduid": [],
+        // "ask": 0,
+        // "help": 0,
+        // "getHeart": 0,
+        // "feedback": false,
+        // //email 로그인에 한하여 이 데이터가 필요하다.
+        // "firstTime": true,
+        // "notificationOn": true,
+        // "frienduid": [],
       });
       FirebaseFirestore.instance
           .collection('users')
