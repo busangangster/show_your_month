@@ -27,7 +27,6 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     final _authController = Get.find<AuthController>();
-    print("sign_in.dart");
     return Center(
       child: SizedBox(
         width: Config.screenWidth! * 0.9,
@@ -37,63 +36,42 @@ class _SignInState extends State<SignIn> {
             key: _formKey,
             child: Column(
               children: [
-                SizedBox(height: Config.screenHeight! * 0.15),
-                //Text("Log In",style: TextStyle(fontSize: Config.screenWidth! * 0.08),),
-                SizedBox(height: Config.screenHeight! * 0.02),
+               SizedBox(height:100.h),
                 Column(children: [
                   Container(),
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Text(
-                      '도움',
-                      style: TextStyle(
-                          fontSize: ScreenUtil().setSp(18),
-                          color: Color(0xFFffaa00)),
-                    ),
-                    Text(
-                      '과',
-                      style: TextStyle(
-                          fontSize: ScreenUtil().setSp(18),
-                          color: Color(0xFF5B21B6)),
-                    ),
-                    Text(
-                      '소통',
-                      style: TextStyle(
-                          fontSize: ScreenUtil().setSp(18),
-                          color: Color(0xFFffaa00)),
-                    ),
-                    Text(
-                      '의 제한 없는 공간',
-                      style: TextStyle(
-                          fontSize: ScreenUtil().setSp(18),
-                          color: Color(0xFF5B21B6)),
-                    ),
-                  ]),
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Container(),
-                    Text(
-                      '라이큐',
-                      style: TextStyle(
-                          fontSize: ScreenUtil().setSp(22),
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF5B21B6)),
-                    ),
-                    Container(),
-                  ]),
-                  //SizedBox(height: ScreenUtil().setHeight(9)),
-                  Text(
-                    '세상의 모든 어려움의',
-                    style: TextStyle(
-                        fontSize: ScreenUtil().setSp(12),
-                        color: Color(0xFF979797)),
+                  Image.asset(
+                    'assets/main_logo.png',
+                    width: 107.w,
+                    height: 107.h,
                   ),
-                  Text(
-                    '장벽을 허물어주는 어플',
-                    style: TextStyle(
-                        fontSize: ScreenUtil().setSp(12),
-                        color: Color(0xFF979797)),
+                  SizedBox(
+                    height: 25.h,
                   ),
+                  Text("계획들을 수행해가며",
+                      style: TextStyle(
+                          color: Color(0xff343A40),
+                          fontSize: 14.sp,
+                          letterSpacing: 1.9.sp)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "자신만의 한 달",
+                        style: TextStyle(
+                            color: Color(0xff458017),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16.sp,
+                            letterSpacing: 1.9.sp),
+                      ),
+                      Text("을 키워보세요!",
+                          style: TextStyle(
+                              color: Color(0xff343A40),
+                              fontSize: 14.sp,
+                              letterSpacing: 1.9.sp))
+                    ],
+                  )
                 ]),
-                SizedBox(height: Config.screenHeight! * 0.04),
+                SizedBox(height: 50.h),
 
                 Column(
                   children: [
@@ -121,18 +99,26 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                     SizedBox(
-                      height: 15.h,
+                      height: 80.h,
                     ),
-                    ElevatedButton(
-                      child: Text('로그인'),
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          String email = _emailController.text.trim();
-                          String password = _passwordController.text;
-                          _authController.signIn(email, password);
-                        }
-                      },
-                    ),
+                    Container(
+                      width: 287.w,
+                      height: 49.h,
+                      child:ElevatedButton(
+
+                        child: Text('로그인'),
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            String email = _emailController.text.trim();
+                            String password = _passwordController.text;
+                            _authController.signIn(email, password);
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(primary: Color(0xff458017),shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(33), // <-- Radius
+                        ), ))
+                    )
+
                   ],
                 ),
                 // Platform.isIOS
@@ -164,12 +150,12 @@ class _SignInState extends State<SignIn> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('라이큐 회원이 아니신가요? '),
+                    Text('한 달 키우기 회원이 아니신가요? '),
                     TextButton(
                       child: const Text(
                         '회원가입',
                         style: TextStyle(
-                          color: Color(0xffFFAA00),
+                          color: Color(0xff458017),
                         ),
                       ),
                       onPressed: () => Get.to(() => const SignUp()),
