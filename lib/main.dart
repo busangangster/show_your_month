@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:show_your_month/root.dart';
+import 'package:show_your_month/splash_page.dart';
 import 'controllerBindings.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
               initialBinding: ControllerBindings(),
               debugShowCheckedModeBanner: false,
               home: FutureBuilder(builder: (context, AsyncSnapshot snapshot) {
-                return root();
+                return splash_page();
                 // return BottomNavigation();
               }));
         });
