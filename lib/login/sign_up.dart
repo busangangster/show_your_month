@@ -346,12 +346,9 @@ class _SignUpState extends State<SignUp> {
                               //color: Colors.white,
                               fontSize: Config.screenWidth! * 0.04),
                         ),
-                        style: ElevatedButton.styleFrom(
-                          primary: AppColors.primaryColor[800],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
+                        style: ElevatedButton.styleFrom(primary: Color(0xff458017),shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(33), // <-- Radius
+                        ),)
                       ),
                     ),
 
@@ -364,7 +361,7 @@ class _SignUpState extends State<SignUp> {
                                 child: Text(
                                   '로그인 ',
                                   style: TextStyle(
-                                      color: AppColors.primaryColor[800]),
+                                    color: Color(0xff458017),),
                                 ),
                                 onPressed: () => Get.offAll(() => root()),
                               ),

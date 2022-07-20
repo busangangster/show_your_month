@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:show_your_month/controllers/auth_controller.dart';
@@ -173,21 +174,40 @@ class _my_pageState extends State<my_page> {
                             )
                           ],
                         ),
+                        SizedBox(height: 11.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Row(
-                              children: [
-                                Container(
-                                    child: Text(
-                                  'hi',
-                                  style: TextStyle(
-                                    color: Color(0xff171717),
-                                    fontSize: 15.sp,
+                            Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: Colors.grey,
                                   ),
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 0,
+                                      blurRadius: 5.0,
+                                      offset: Offset(
+                                          0, 5), // changes position of shadow
+                                    ),
+                                  ],
+                                ),
+                                height: 43.h,
+                                width: 110.w,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset('assets/green_star.png',
+                                        height: 40, width: 30),
+                                    SizedBox(
+                                      width: 2.w,
+                                    ),
+                                    Text('화분 수')
+                                  ],
                                 ))
-                              ],
-                            )
                           ],
                         )
                       ],
