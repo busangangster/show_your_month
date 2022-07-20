@@ -1,6 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:show_your_month/controllers/auth_controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:show_your_month/mypage/setting_page.dart';
+import '../theme/colors.dart';
+
 
 class my_page extends StatefulWidget {
   const my_page({Key? key}) : super(key: key);
@@ -10,54 +16,163 @@ class my_page extends StatefulWidget {
 }
 
 class _my_pageState extends State<my_page> {
-  final _authController = Get.find<AuthController>();
+
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+  User? currentUser;
+  var firebaseUser = FirebaseAuth.instance.currentUser;
+
+  User? get userProfile => auth.currentUser;
+
+  @override
+  initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            child: Text('my_page'),
+    Stream<DocumentSnapshot> _userStream = FirebaseFirestore.instance
+        .collection('users')
+        .doc(userProfile!.uid)
+        .snapshots();
+
+    return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: const Text(
+            "마이 페이지",
+            style: TextStyle(color: Colors.black),
           ),
-          ListTile(
-            title: Text(
-              "로그아웃",
-              style: TextStyle(fontSize: 14, color: Color(0xFF495057)),
-            ),
-            trailing: Container(
-              height: 24,
-              width: 24,
-              child: Icon(
-                Icons.arrow_forward_ios,
-                color: Color(0xFFADB5BD),
+          elevation: 0.0,
+          backgroundColor: Colors.white,
+          centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () {
+                Get.to(setting_page());
+              },
+              icon: const Icon(
+                Icons.settings_sharp,
+                color: Colors.black,
               ),
-            ),
-            onTap: () {
-              Get.dialog(
-                AlertDialog(
-                  title: const Text("로그아웃 하시겠습니까?"),
-                  content:
-                  const Text("로그아웃시 회원님의 정보는 유지되고 다시 로그인이 필요합니다."),
-                  actions: [
-                    TextButton(
-                        onPressed: () {
-                          _authController.signout();
+            )
+          ],
+        ),
+        body: SingleChildScrollView(
+            child: Center(
+                child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+                //  padding: EdgeInsets.fromLTRB(28, 0, 28, 0),
+                alignment: Alignment.topRight,
+                child: Row(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 50.h,
+                    ),
+                    SizedBox(
+                      height: 98.h,
+                      width: 93.w,
+                      child: StreamBuilder<DocumentSnapshot>(
+                        stream: _userStream,
+                        builder: (context,
+                            AsyncSnapshot<DocumentSnapshot> snapshot) {
+                          final getdata = snapshot.data;
+                          if (snapshot.hasData) {
+                            print("my_page for test ${getdata?["photoURL"]}");
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(57),
+                              child: Image.network(
+                                getdata?["photoURL"],
+                                height: 114.h,
+                                width: 114.w,
+                                fit: BoxFit.fill,
+                              ),
+                            );
+                          } else {
+                            return Container();
+                          }
                         },
-                        child: const Text("YES")),
-                    TextButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        child: const Text("NO"))
+                      ),
+                    ),
+                    SizedBox(
+                      height: 13.h,
+                    ),
+                    Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          // crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 8.w,
+                              height: 8.h,
+                              decoration: const BoxDecoration(
+                                color: AppColors.primaryColor,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(4.0),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 4.h,
+                            ),
+                            StreamBuilder<DocumentSnapshot>(
+                              stream: _userStream,
+                              builder: (context,
+                                  AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                final getdata = snapshot.data;
+                                if (snapshot.hasData) {
+                                  return Text(
+                                    '${getdata?["name"]} 님',
+                                    style: TextStyle(
+                                      color: AppColors.secondaryColor[800],
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              },
+                            )
+                          ],
+                        ),
+                        Row(
+                          //crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            StreamBuilder<DocumentSnapshot>(
+                              stream: _userStream,
+                              builder: (context,
+                                  AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                final getdata = snapshot.data;
+                                if (snapshot.hasData) {
+                                  return Text(
+                                    '${getdata?["email"]}',
+                                    style: TextStyle(
+                                      color: AppColors.secondaryColor[800],
+                                      fontSize: 15.sp,
+                                      // fontWeight: FontWeight.w500,
+                                    ),
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              },
+                            )
+                          ],
+                        ),
+
+                      ],
+                    ),
                   ],
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-    );
+                )),
+          ],
+        ))));
+
   }
 }

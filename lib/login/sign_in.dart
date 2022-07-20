@@ -36,7 +36,7 @@ class _SignInState extends State<SignIn> {
             key: _formKey,
             child: Column(
               children: [
-               SizedBox(height:100.h),
+               SizedBox(height:120.h),
                 Column(children: [
                   Container(),
                   Image.asset(
@@ -99,7 +99,7 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                     SizedBox(
-                      height: 80.h,
+                      height: 60.h,
                     ),
                     Container(
                       width: 287.w,
