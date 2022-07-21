@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:show_your_month/plantpage/plant_setting_page.dart';
 
 class plant_page extends StatefulWidget {
   const plant_page({Key? key}) : super(key: key);
@@ -10,8 +14,31 @@ class plant_page extends StatefulWidget {
 class _plant_pageState extends State<plant_page> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('plant_page'),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Image.asset(
+          'assets/top_bar_logo.png',
+          width: 100.w,
+          height: 48.h,
+        ),
+        elevation: 5,
+        backgroundColor: Colors.white,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Get.to(plant_setting_page(
+                getName: '',
+                getEmail: '',
+              ));
+            },
+            icon: const Icon(
+              Icons.settings_sharp,
+              color: Colors.black,
+            ),
+          )
+        ],
+      ),
     );
   }
 }

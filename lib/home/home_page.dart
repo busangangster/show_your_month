@@ -3,6 +3,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'calendar_page.dart';
+
+import '../mypage/setting_page.dart';
+import 'home_setting_page.dart';
 
 class home_page extends StatefulWidget {
   const home_page({Key? key}) : super(key: key);
@@ -138,15 +144,36 @@ class home_pageState extends State<home_page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Image.asset(
-          'assets/top_bar_logo.png',
-          width: 100.w,
-          height: 48.h,
+        appBar: AppBar(
+          title: Image.asset(
+            'assets/top_bar_logo.png',
+            width: 100.w,
+            height: 48.h,
+          ),
+          elevation: 5,
+          backgroundColor: Colors.white,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Get.to(calendar_page());
+                },
+                icon: const Icon(Icons.calendar_month_outlined,
+                    color: Colors.black)),
+            IconButton(
+              onPressed: () {
+                Get.to(home_setting_page(
+                  getName: '',
+                  getEmail: '',
+                ));
+              },
+              icon: const Icon(
+                Icons.settings_sharp,
+                color: Colors.black,
+              ),
+            )
+          ],
         ),
-      ),
-
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Stack(
           children: [
@@ -155,7 +182,8 @@ class home_pageState extends State<home_page> {
               builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                 if (streamSnapshot.hasData) {
                   return ListView.builder(
-                    itemCount: streamSnapshot.data!.docs.length, // number of rows
+                    itemCount:
+                        streamSnapshot.data!.docs.length, // number of rows
                     itemBuilder: (context, index) {
                       final DocumentSnapshot documentSnapshot =
                           streamSnapshot.data!.docs[index];
@@ -174,7 +202,8 @@ class home_pageState extends State<home_page> {
                                   ),
                                   IconButton(
                                     icon: const Icon(Icons.delete),
-                                    onPressed: () => _delete(documentSnapshot.id),
+                                    onPressed: () =>
+                                        _delete(documentSnapshot.id),
                                   )
                                 ],
                               )),
@@ -188,18 +217,17 @@ class home_pageState extends State<home_page> {
                 );
               },
             ),
-
             Column(
-
               children: [
-                SizedBox(height: 570.h,),
+                SizedBox(
+                  height: 570.h,
+                ),
                 FloatingActionButton(
-                    onPressed: () => _create(),
-                    child: const Icon(Icons.add),
-                  ),
+                  onPressed: () => _create(),
+                  child: const Icon(Icons.add),
+                ),
               ],
             ),
-
           ],
         ));
   }

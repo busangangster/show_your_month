@@ -37,13 +37,13 @@ class _my_pageState extends State<my_page> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: const Text(
-            "마이 페이지",
-            style: TextStyle(color: Colors.black),
+          title: Image.asset(
+            'assets/top_bar_logo.png',
+            width: 100.w,
+            height: 48.h,
           ),
-          elevation: 0.0,
+          elevation: 5,
           backgroundColor: Colors.white,
-          centerTitle: true,
           actions: [
             IconButton(
               onPressed: () {
