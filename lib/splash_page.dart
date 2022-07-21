@@ -13,7 +13,7 @@ class splash_page extends StatelessWidget {
       splash: Container(
         width: 200,
         height: 200,
-        child: Image.asset('assets/main_logo.png'),
+        child: Image.asset('assets/splash_logo.png'),
       ),
       nextScreen: root(),
       splashTransition: SplashTransition.scaleTransition,

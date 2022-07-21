@@ -47,7 +47,10 @@ class _my_pageState extends State<my_page> {
           actions: [
             IconButton(
               onPressed: () {
-                Get.to(setting_page());
+                Get.to(setting_page(
+                  getName: '',
+                  getEmail: '',
+                ));
               },
               icon: const Icon(
                 Icons.settings_sharp,
