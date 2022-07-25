@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:show_your_month/home/home_page.dart';
 import 'package:show_your_month/navigation_page.dart';
 
 import '../controllers/auth_controller.dart';
@@ -55,7 +56,21 @@ class _WelcomePageState extends State<WelcomePage> {
               children: [
                 Container(
                   constraints: const BoxConstraints.expand(height: 480),
-                  child: Text('싸나 내꺼')
+                  child: ElevatedButton(
+                    child: Text(
+                      '홈으로 고고씽 ~~ ',
+                      style: TextStyle(
+                        fontSize: ScreenUtil().setSp(14),
+                        color: Colors.grey,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                    onPressed: () => Get.to(() => navigation_page()),
+                    style: ButtonStyle(
+                      overlayColor: MaterialStateColor.resolveWith(
+                          (states) => Colors.transparent),
+                    ),
+                  ),
                   // child: Swiper(
                   //   itemBuilder: (BuildContext context, int index) {
                   //     return steps[index];
@@ -169,7 +184,6 @@ Widget _step2() {
       SizedBox(
         height: 30,
       ),
-
       SizedBox(height: ScreenUtil().setHeight(20)),
       Text(
         '답변자가 되어 도움을 주세요',
@@ -204,7 +218,6 @@ Widget _step3() {
       SizedBox(
         height: 30,
       ),
-
       SizedBox(height: ScreenUtil().setHeight(20)),
       Text(
         '질문자가 되어 도움을 받아보세요',

@@ -51,16 +51,16 @@ class _rootState extends State<root> {
         print("root.dart");
         return isSign
             ? _.isFirstSignIn.value
-                ? _.isEmailSignIn.value
-                    ? WelcomePage()
-                    : const SignUp()
-                : navigation_page()
+                ? _.isEmailSignIn.value // 구글 로그인 등
+                    ? WelcomePage() // sign in하고, 첫 sign in 이고, email sign in인 경우
+                    : const SignUp() // sign in이고, 첫 sign in이고, email sign in이 아닌경우
+                : navigation_page() // sign in 되어 있는데, 첫 로그인이 아닌경우
             : Scaffold(
                 body: SafeArea(
                   child: Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: Config.screenWidth! * 0.0),
-                    child: const SignIn(),
+                    child: const SignIn(), // sign in 되어 있지 않은 경우
                   ),
                 ),
               );

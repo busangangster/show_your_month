@@ -23,6 +23,7 @@ class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -203,19 +204,60 @@ class _SignInState extends State<SignIn> {
   Widget buildTextFormFields() {
     return Column(
       children: [
-        RoundedTextFormField(
-          controller: _emailController,
-          hintText: '이메일',
-          // validator: (value) {
-          //   bool _isEmailValid = RegExp(
-          //       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-          //       .hasMatch(value!);
-          //   if (!_isEmailValid) {
-          //     return '유효하지 않은 이메일입니다.';
-          //   }
-          //   return null;
-          // },
+        Container(
+          height: ScreenUtil().setHeight(45),
+          width: ScreenUtil().setWidth(278),
+          child: TextFormField(
+            style: TextStyle(fontSize: 14),
+            controller: _emailController,
+            decoration: InputDecoration(
+              hintText: '이메일',
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding: EdgeInsets.all(15.0),
+              focusedBorder: OutlineInputBorder(
+                //borderSide: BorderSide(color: Colors.green),
+                borderSide:
+                    const BorderSide(width: 1, color: Color(0xffD0D0D0)),
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide:
+                    const BorderSide(width: 1, color: Color(0xffD0D0D0)),
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+            ),
+          ),
         ),
+        // RoundedTextFormField(
+        //   controller: _emailController,
+        //   hintText: '이메일',
+        //   // validator: (value) {
+        //   //   bool _isEmailValid = RegExp(
+        //   //       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        //   //       .hasMatch(value!);
+        //   //   if (!_isEmailValid) {
+        //   //     return '유효하지 않은 이메일입니다.';
+        //   //   }
+        //   //   return null;
+        //   // },
+        // ),
         // Container(
         //   height: ScreenUtil().setHeight(43),
         //   width: ScreenUtil().setWidth(287),
@@ -234,17 +276,67 @@ class _SignInState extends State<SignIn> {
         // ),
 
         SizedBox(height: Config.screenHeight! * 0.01),
-        RoundedTextFormField(
-          controller: _passwordController,
-          hintText: '비밀번호 ',
-          obsecureText: true,
-          // validator: (value) {
-          //   if (value.toString().length < 6) {
-          //     return '6자리 이상';
-          //   }
-          //   return null;
-          // },
+        Container(
+          height: ScreenUtil().setHeight(45),
+          width: ScreenUtil().setWidth(278),
+          child: TextFormField(
+            style: TextStyle(fontSize: 14),
+            controller: _passwordController,
+            obscureText: _isObscure,
+            decoration: InputDecoration(
+              suffixIcon: IconButton(
+                icon:
+                    Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+                onPressed: () {
+                  setState(() {
+                    _isObscure = !_isObscure;
+                  });
+                },
+              ),
+              hintText: '비밀번호',
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding: EdgeInsets.all(15.0),
+              focusedBorder: OutlineInputBorder(
+                //borderSide: BorderSide(color: Colors.green),
+                borderSide:
+                    const BorderSide(width: 1, color: Color(0xffD0D0D0)),
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide:
+                    const BorderSide(width: 1, color: Color(0xffD0D0D0)),
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+            ),
+          ),
         ),
+        // RoundedTextFormField(
+        //   controller: _passwordController,
+        //   hintText: '비밀번호 ',
+        //   obsecureText: true,
+        // validator: (value) {
+        //   if (value.toString().length < 6) {
+        //     return '6자리 이상';
+        //   }
+        //   return null;
+        // },
       ],
     );
   }

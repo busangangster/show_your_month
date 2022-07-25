@@ -27,6 +27,8 @@ class _SignUpState extends State<SignUp> {
 
   bool isEnabled = false;
   bool isButtonActive = true;
+  bool _isObscure1 = true;
+  bool _isObscure2 = true;
   final _formKey = GlobalKey<FormState>();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
@@ -71,9 +73,10 @@ class _SignUpState extends State<SignUp> {
                     ),
                     SizedBox(height: Config.screenHeight! * 0.05),
                     //이메일 로그인, ios 로그인에 따라 변경
-                    _.isEmailSignIn.value
-                        ? buildEmailTextFormFields()
-                        : buildNotEmailTextFormFields(),
+                    // _.isEmailSignIn.value
+                    //     ?
+                    buildEmailTextFormFields(),
+                    // : buildNotEmailTextFormFields(),
                     SizedBox(height: Config.screenHeight! * 0.1),
 
                     SizedBox(
@@ -814,56 +817,271 @@ WegoLego 은(는) 정보주체의 이용정보를 저장하고 수시로 불러�
       children: [
         SizedBox(height: Config.screenHeight! * 0.02),
         SizedBox(height: Config.screenHeight! * 0.02),
-        RoundedTextFormField(
-          controller: _emailController,
-          hintText: '이메일 ',
-          validator: (value) {
-            bool _isEmailValid = RegExp(
-                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                .hasMatch(value!);
-            if (!_isEmailValid) {
-              return '유효하지 않은 이메일 양식입니다. ';
-            }
-            return null;
-          },
+        Container(
+          height: ScreenUtil().setHeight(45),
+          width: ScreenUtil().setWidth(278),
+          child: TextFormField(
+            style: TextStyle(fontSize: 14),
+            controller: _emailController,
+            // obscureText: _isObscure,
+            validator: (value) {
+              bool _isEmailValid = RegExp(
+                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                  .hasMatch(value!);
+              if (!_isEmailValid) {
+                return '유효하지 않은 이메일 양식입니다. ';
+              }
+              return null;
+            },
+            decoration: InputDecoration(
+              hintText: '이메일',
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding: EdgeInsets.all(15.0),
+              focusedBorder: OutlineInputBorder(
+                //borderSide: BorderSide(color: Colors.green),
+                borderSide:
+                    const BorderSide(width: 1, color: Color(0xffD0D0D0)),
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide:
+                    const BorderSide(width: 1, color: Color(0xffD0D0D0)),
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+            ),
+          ),
         ),
+        // RoundedTextFormField(
+        //   controller: _emailController,
+        //   hintText: '이메일 ',
+        //   validator: (value) {
+        //     bool _isEmailValid = RegExp(
+        //             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        //         .hasMatch(value!);
+        //     if (!_isEmailValid) {
+        //       return '유효하지 않은 이메일 양식입니다. ';
+        //     }
+        //     return null;
+        //   },
+        // ),
         SizedBox(height: Config.screenHeight! * 0.02),
-        RoundedTextFormField(
-          controller: _passwordController,
-          obsecureText: true,
-          hintText: '비밀번호 ',
-          validator: (value) {
-            if (value.toString().length < 6) {
-              return '비밀번호는 6자리 이상으로 설정해주세요. ';
-            }
-            return null;
-          },
+        Container(
+          height: ScreenUtil().setHeight(45),
+          width: ScreenUtil().setWidth(278),
+          child: TextFormField(
+            style: TextStyle(fontSize: 14),
+            controller: _passwordController,
+            obscureText: _isObscure1,
+            validator: (value) {
+              if (value.toString().length < 6) {
+                return '비밀번호는 6자리 이상으로 설정해주세요. ';
+              }
+              return null;
+            },
+            decoration: InputDecoration(
+              suffixIcon: IconButton(
+                icon:
+                    Icon(_isObscure1 ? Icons.visibility : Icons.visibility_off),
+                onPressed: () {
+                  setState(() {
+                    _isObscure1 = !_isObscure1;
+                  });
+                },
+              ),
+              hintText: '비밀번호',
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding: EdgeInsets.all(15.0),
+              focusedBorder: OutlineInputBorder(
+                //borderSide: BorderSide(color: Colors.green),
+                borderSide:
+                    const BorderSide(width: 1, color: Color(0xffD0D0D0)),
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide:
+                    const BorderSide(width: 1, color: Color(0xffD0D0D0)),
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+            ),
+          ),
         ),
+        // RoundedTextFormField(
+        //   controller: _passwordController,
+        //   obsecureText: true,
+        //   hintText: '비밀번호 ',
+        //   validator: (value) {
+        //     if (value.toString().length < 6) {
+        //       return '비밀번호는 6자리 이상으로 설정해주세요. ';
+        //     }
+        //     return null;
+        //   },
+        // ),
         SizedBox(height: Config.screenHeight! * 0.02),
-        RoundedTextFormField(
-          obsecureText: true,
-          hintText: '비밀번호 확인 ',
-          validator: (value) {
-            if (value.trim() != _passwordController.text.trim()) {
-              return '비밀번호가 일치하지 않습니다. ';
-            }
+        Container(
+          height: ScreenUtil().setHeight(45),
+          width: ScreenUtil().setWidth(278),
+          child: TextFormField(
+            style: TextStyle(fontSize: 14),
+            // controller: _passwordController,
+            obscureText: _isObscure2,
+            validator: (value) {
+              if (value?.trim() != _passwordController.text.trim()) {
+                return '비밀번호가 일치하지 않습니다. ';
+              }
 
-            return null;
-          },
+              return null;
+            },
+            decoration: InputDecoration(
+              suffixIcon: IconButton(
+                icon:
+                    Icon(_isObscure2 ? Icons.visibility : Icons.visibility_off),
+                onPressed: () {
+                  setState(() {
+                    _isObscure2 = !_isObscure2;
+                  });
+                },
+              ),
+              hintText: '비밀번호 확인',
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding: EdgeInsets.all(15.0),
+              focusedBorder: OutlineInputBorder(
+                //borderSide: BorderSide(color: Colors.green),
+                borderSide:
+                    const BorderSide(width: 1, color: Color(0xffD0D0D0)),
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide:
+                    const BorderSide(width: 1, color: Color(0xffD0D0D0)),
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+            ),
+          ),
         ),
+        // RoundedTextFormField(
+        //   obsecureText: true,
+        //   hintText: '비밀번호 확인 ',
+        //   validator: (value) {
+        //     if (value.trim() != _passwordController.text.trim()) {
+        //       return '비밀번호가 일치하지 않습니다. ';
+        //     }
+        //
+        //     return null;
+        //   },
+        // ),
         SizedBox(height: Config.screenHeight! * 0.02),
-        RoundedTextFormField(
-          controller: _nameController,
-          hintText: '닉네임 ',
-          validator: (value) {
-            if (value.toString().length <= 2) {
-              return '2자리 이상 입력해주세요. ';
-            } else if (value.toString().length >= 7) {
-              return '6글자 이하로 입력해주세요';
-            }
-            return null;
-          },
+        Container(
+          height: ScreenUtil().setHeight(45),
+          width: ScreenUtil().setWidth(278),
+          child: TextFormField(
+            style: TextStyle(fontSize: 14),
+            controller: _nameController,
+            validator: (value) {
+              if (value.toString().length <= 2) {
+                return '3자리 이상 입력해주세요. ';
+              } else if (value.toString().length >= 7) {
+                return '6글자 이하로 입력해주세요';
+              }
+              return null;
+            },
+            decoration: InputDecoration(
+              hintText: '닉네임',
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding: EdgeInsets.all(15.0),
+              focusedBorder: OutlineInputBorder(
+                //borderSide: BorderSide(color: Colors.green),
+                borderSide:
+                    const BorderSide(width: 1, color: Color(0xffD0D0D0)),
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide:
+                    const BorderSide(width: 1, color: Color(0xffD0D0D0)),
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(10.0),
+                ),
+              ),
+            ),
+          ),
         ),
+        // RoundedTextFormField(
+        //   controller: _nameController,
+        //   hintText: '닉네임 ',
+        //   validator: (value) {
+        //     if (value.toString().length <= 2) {
+        //       return '2자리 이상 입력해주세요. ';
+        //     } else if (value.toString().length >= 7) {
+        //       return '6글자 이하로 입력해주세요';
+        //     }
+        //     return null;
+        //   },
+        // ),
       ],
     );
   }
