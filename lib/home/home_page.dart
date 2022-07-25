@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 class home_page extends StatefulWidget {
   const home_page({Key? key}) : super(key: key);
@@ -12,6 +13,9 @@ class home_page extends StatefulWidget {
 }
 
 class home_pageState extends State<home_page> {
+
+  var today_Date = DateFormat('dd').format(DateTime.now());
+
   final CollectionReference _products =
       FirebaseFirestore.instance.collection('products');
   final TextEditingController _nameController = TextEditingController();
@@ -148,59 +152,75 @@ class home_pageState extends State<home_page> {
       ),
 
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: Stack(
-          children: [
-            StreamBuilder(
-              stream: _products.snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                if (streamSnapshot.hasData) {
-                  return ListView.builder(
-                    itemCount: streamSnapshot.data!.docs.length, // number of rows
-                    itemBuilder: (context, index) {
-                      final DocumentSnapshot documentSnapshot =
-                          streamSnapshot.data!.docs[index];
-                      return Card(
-                        margin: const EdgeInsets.all(10),
-                        child: ListTile(
-                          title: Text(documentSnapshot['name']),
-                          subtitle: Text(documentSnapshot['price'].toString()),
-                          trailing: SizedBox(
-                              width: 100,
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                    icon: const Icon(Icons.edit),
-                                    onPressed: () => _update(documentSnapshot),
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.delete),
-                                    onPressed: () => _delete(documentSnapshot.id),
-                                  )
-                                ],
-                              )),
-                        ),
-                      );
-                    },
-                  );
-                }
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              },
-            ),
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(38, 45, 38 , 0),
+          child: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   Text("오늘은",style: TextStyle(fontSize: 12.sp)),
+                   Text("${today_Date} 일",style: TextStyle(fontSize: 32.sp,fontWeight: FontWeight.bold),),
+                   SizedBox(height: 54.h,),
+                   Text("할 일을 차근차근 해보아요 !",style: TextStyle(fontSize: 12.sp)),
+                   Container(
+                     height: 400.h,
+                     child: StreamBuilder(
+                       stream: _products.snapshots(),
+                       builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                         if (streamSnapshot.hasData) {
+                           return ListView.builder(
+                             itemCount: streamSnapshot.data!.docs.length, // number of rows
+                             itemBuilder: (context, index) {
+                               final DocumentSnapshot documentSnapshot =
+                               streamSnapshot.data!.docs[index];
+                               return Card(
 
-            Column(
+                                 child: ListTile(
+                                   title: Text(documentSnapshot['name']),
+                                   subtitle: Text(documentSnapshot['price'].toString()),
+                                   trailing: SizedBox(
+                                       width: 100,
+                                       child: Row(
+                                         children: [
+                                           IconButton(
+                                             icon: const Icon(Icons.edit),
+                                             onPressed: () => _update(documentSnapshot),
+                                           ),
+                                           IconButton(
+                                             icon: const Icon(Icons.delete),
+                                             onPressed: () => _delete(documentSnapshot.id),
+                                           )
+                                         ],
+                                       )),
+                                 ),
+                               );
+                             },
+                           );
+                         }
+                         return const Center(
+                           child: CircularProgressIndicator(),
+                         );
+                       },
+                     ),
+                   ),
+                 ],
+              ),
 
-              children: [
-                SizedBox(height: 570.h,),
-                FloatingActionButton(
-                    onPressed: () => _create(),
-                    child: const Icon(Icons.add),
-                  ),
-              ],
-            ),
 
-          ],
+              Column(
+
+                children: [
+                  SizedBox(height: 570.h,),
+                  FloatingActionButton(
+                      onPressed: () => _create(),
+                      child: const Icon(Icons.add),
+                    ),
+                ],
+              ),
+
+            ],
+          ),
         ));
   }
 }

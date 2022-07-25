@@ -49,6 +49,7 @@ dependencies:
   http: ^0.13.4
   sign_button: ^2.0.2
   google_fonts: ^3.0.1
+  intl: ^0.17.0
 
 
 
