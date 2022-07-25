@@ -48,9 +48,9 @@ class _my_pageState extends State<my_page> {
             IconButton(
               onPressed: () {
                 Get.to(setting_page(
-                  getName: '',
-                  getEmail: '',
-                ));
+                    // getName: '',
+                    // getEmail: '',
+                    ));
               },
               icon: const Icon(
                 Icons.settings_sharp,

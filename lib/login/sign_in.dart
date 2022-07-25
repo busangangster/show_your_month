@@ -36,7 +36,7 @@ class _SignInState extends State<SignIn> {
             key: _formKey,
             child: Column(
               children: [
-               SizedBox(height:120.h),
+                SizedBox(height: 120.h),
                 Column(children: [
                   Container(),
                   Image.asset(
@@ -76,49 +76,79 @@ class _SignInState extends State<SignIn> {
                 Column(
                   children: [
                     buildTextFormFields(),
-                    Padding(
-                      padding: EdgeInsets.all(0),
-                      // EdgeInsets.symmetric(vertical: Config.screenHeight! * 0.005),
-                      child: Align(
-                        alignment: Alignment(0.8, 0.0),
-                        child: TextButton(
-                          child: Text(
-                            '비밀번호 찾기',
-                            style: TextStyle(
-                              fontSize: ScreenUtil().setSp(14),
-                              color: Colors.grey,
-                              decoration: TextDecoration.underline,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(0),
+                          // EdgeInsets.symmetric(vertical: Config.screenHeight! * 0.005),
+                          child: Align(
+                            alignment: Alignment(0.8, 0.0),
+                            child: TextButton(
+                              child: Text(
+                                '아이디 찾기',
+                                style: TextStyle(
+                                  fontSize: ScreenUtil().setSp(14),
+                                  color: Colors.grey,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                              onPressed: () =>
+                                  Get.to(() => const ResetPassword()),
+                              style: ButtonStyle(
+                                overlayColor: MaterialStateColor.resolveWith(
+                                    (states) => Colors.transparent),
+                              ),
                             ),
                           ),
-                          onPressed: () => Get.to(() => const ResetPassword()),
-                          style: ButtonStyle(
-                            overlayColor: MaterialStateColor.resolveWith(
-                                (states) => Colors.transparent),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(right: 25),
+                          // EdgeInsets.symmetric(vertical: Config.screenHeight! * 0.005),
+                          child: Align(
+                            alignment: Alignment(0.8, 0.0),
+                            child: TextButton(
+                              child: Text(
+                                '비밀번호 찾기',
+                                style: TextStyle(
+                                  fontSize: ScreenUtil().setSp(14),
+                                  color: Colors.grey,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                              onPressed: () =>
+                                  Get.to(() => const ResetPassword()),
+                              style: ButtonStyle(
+                                overlayColor: MaterialStateColor.resolveWith(
+                                    (states) => Colors.transparent),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                     SizedBox(
                       height: 60.h,
                     ),
                     Container(
-                      width: 287.w,
-                      height: 49.h,
-                      child:ElevatedButton(
-
-                        child: Text('로그인'),
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            String email = _emailController.text.trim();
-                            String password = _passwordController.text;
-                            _authController.signIn(email, password);
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(primary: Color(0xff458017),shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(33), // <-- Radius
-                        ), ))
-                    )
-
+                        width: 287.w,
+                        height: 49.h,
+                        child: ElevatedButton(
+                            child: Text('로그인'),
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                String email = _emailController.text.trim();
+                                String password = _passwordController.text;
+                                _authController.signIn(email, password);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Color(0xff458017),
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(33), // <-- Radius
+                              ),
+                            )))
                   ],
                 ),
                 // Platform.isIOS
