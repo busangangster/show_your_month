@@ -14,12 +14,7 @@ class _storage_PageState extends State<storage_Page> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Image.asset(
-          'assets/top_bar_logo.png',
-          width: 100.w,
-          height: 48.h,
-        ),
-        elevation: 5,
+        elevation: 0,
         backgroundColor: Colors.white,
       ),
     );

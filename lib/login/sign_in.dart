@@ -28,172 +28,175 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     final _authController = Get.find<AuthController>();
-    return Center(
-      child: SizedBox(
-        width: Config.screenWidth! * 0.9,
-        height: Config.screenHeight! * 1.5,
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                SizedBox(height: 120.h),
-                Column(children: [
-                  Container(),
-                  Image.asset(
-                    'assets/main_logo.png',
-                    width: 107.w,
-                    height: 107.h,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: SizedBox(
+          width: Config.screenWidth! * 0.9,
+          height: Config.screenHeight! * 1.5,
+          child: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  SizedBox(height: 120.h),
+                  Column(children: [
+                    Container(),
+                    Image.asset(
+                      'assets/main_logo.png',
+                      width: 107.w,
+                      height: 107.h,
+                    ),
+                    SizedBox(
+                      height: 25.h,
+                    ),
+                    Text("계획들을 수행해가며",
+                        style: TextStyle(
+                            color: Color(0xff343A40),
+                            fontSize: 14.sp,
+                            letterSpacing: 1.9.sp)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "자신만의 한 달",
+                          style: TextStyle(
+                              color: Color(0xff458017),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.sp,
+                              letterSpacing: 1.9.sp),
+                        ),
+                        Text("을 키워보세요!",
+                            style: TextStyle(
+                                color: Color(0xff343A40),
+                                fontSize: 14.sp,
+                                letterSpacing: 1.9.sp))
+                      ],
+                    )
+                  ]),
+                  SizedBox(height: 50.h),
+
+                  Column(
+                    children: [
+                      buildTextFormFields(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(0),
+                            // EdgeInsets.symmetric(vertical: Config.screenHeight! * 0.005),
+                            child: Align(
+                              alignment: Alignment(0.8, 0.0),
+                              child: TextButton(
+                                child: Text(
+                                  '아이디 찾기',
+                                  style: TextStyle(
+                                    fontSize: ScreenUtil().setSp(14),
+                                    color: Colors.grey,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                                onPressed: () =>
+                                    Get.to(() => const ResetPassword()),
+                                style: ButtonStyle(
+                                  overlayColor: MaterialStateColor.resolveWith(
+                                      (states) => Colors.transparent),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 25),
+                            // EdgeInsets.symmetric(vertical: Config.screenHeight! * 0.005),
+                            child: Align(
+                              alignment: Alignment(0.8, 0.0),
+                              child: TextButton(
+                                child: Text(
+                                  '비밀번호 찾기',
+                                  style: TextStyle(
+                                    fontSize: ScreenUtil().setSp(14),
+                                    color: Colors.grey,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                                onPressed: () =>
+                                    Get.to(() => const ResetPassword()),
+                                style: ButtonStyle(
+                                  overlayColor: MaterialStateColor.resolveWith(
+                                      (states) => Colors.transparent),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 60.h,
+                      ),
+                      Container(
+                          width: 287.w,
+                          height: 49.h,
+                          child: ElevatedButton(
+                              child: Text('로그인'),
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  String email = _emailController.text.trim();
+                                  String password = _passwordController.text;
+                                  _authController.signIn(email, password);
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: Color(0xff458017),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(33), // <-- Radius
+                                ),
+                              )))
+                    ],
                   ),
-                  SizedBox(
-                    height: 25.h,
-                  ),
-                  Text("계획들을 수행해가며",
-                      style: TextStyle(
-                          color: Color(0xff343A40),
-                          fontSize: 14.sp,
-                          letterSpacing: 1.9.sp)),
+                  // Platform.isIOS
+                  //     ? SignInButton(
+                  //         buttonType: ButtonType.google,
+                  //         onPressed: () => _authController.signInWithGoogle(),
+                  //       )
+                  //     : SignInButton.mini(
+                  //         buttonType: ButtonType.google,
+                  //         onPressed: () => _authController.signInWithGoogle(),
+                  //       ),
+                  // Platform.isIOS
+                  //     ? SizedBox(
+                  //         height: 10.h,
+                  //       )
+                  //     : Container(),
+                  // Platform.isIOS
+                  //     ? SignInButton(
+                  //         buttonType: ButtonType.appleDark,
+                  //         onPressed: () => _authController.signInWithApple(),
+                  //       )
+                  //     : Container(),
+                  // Platform.isIOS
+                  //     ? SizedBox(
+                  //         height: 30.h,
+                  //       )
+                  //     : Container(),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "자신만의 한 달",
-                        style: TextStyle(
-                            color: Color(0xff458017),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16.sp,
-                            letterSpacing: 1.9.sp),
-                      ),
-                      Text("을 키워보세요!",
+                      Text('한 달 키우기 회원이 아니신가요? '),
+                      TextButton(
+                        child: const Text(
+                          '회원가입',
                           style: TextStyle(
-                              color: Color(0xff343A40),
-                              fontSize: 14.sp,
-                              letterSpacing: 1.9.sp))
-                    ],
-                  )
-                ]),
-                SizedBox(height: 50.h),
-
-                Column(
-                  children: [
-                    buildTextFormFields(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(0),
-                          // EdgeInsets.symmetric(vertical: Config.screenHeight! * 0.005),
-                          child: Align(
-                            alignment: Alignment(0.8, 0.0),
-                            child: TextButton(
-                              child: Text(
-                                '아이디 찾기',
-                                style: TextStyle(
-                                  fontSize: ScreenUtil().setSp(14),
-                                  color: Colors.grey,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                              onPressed: () =>
-                                  Get.to(() => const ResetPassword()),
-                              style: ButtonStyle(
-                                overlayColor: MaterialStateColor.resolveWith(
-                                    (states) => Colors.transparent),
-                              ),
-                            ),
+                            color: Color(0xff458017),
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(right: 25),
-                          // EdgeInsets.symmetric(vertical: Config.screenHeight! * 0.005),
-                          child: Align(
-                            alignment: Alignment(0.8, 0.0),
-                            child: TextButton(
-                              child: Text(
-                                '비밀번호 찾기',
-                                style: TextStyle(
-                                  fontSize: ScreenUtil().setSp(14),
-                                  color: Colors.grey,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                              onPressed: () =>
-                                  Get.to(() => const ResetPassword()),
-                              style: ButtonStyle(
-                                overlayColor: MaterialStateColor.resolveWith(
-                                    (states) => Colors.transparent),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 60.h,
-                    ),
-                    Container(
-                        width: 287.w,
-                        height: 49.h,
-                        child: ElevatedButton(
-                            child: Text('로그인'),
-                            onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                String email = _emailController.text.trim();
-                                String password = _passwordController.text;
-                                _authController.signIn(email, password);
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: Color(0xff458017),
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(33), // <-- Radius
-                              ),
-                            )))
-                  ],
-                ),
-                // Platform.isIOS
-                //     ? SignInButton(
-                //         buttonType: ButtonType.google,
-                //         onPressed: () => _authController.signInWithGoogle(),
-                //       )
-                //     : SignInButton.mini(
-                //         buttonType: ButtonType.google,
-                //         onPressed: () => _authController.signInWithGoogle(),
-                //       ),
-                // Platform.isIOS
-                //     ? SizedBox(
-                //         height: 10.h,
-                //       )
-                //     : Container(),
-                // Platform.isIOS
-                //     ? SignInButton(
-                //         buttonType: ButtonType.appleDark,
-                //         onPressed: () => _authController.signInWithApple(),
-                //       )
-                //     : Container(),
-                // Platform.isIOS
-                //     ? SizedBox(
-                //         height: 30.h,
-                //       )
-                //     : Container(),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('한 달 키우기 회원이 아니신가요? '),
-                    TextButton(
-                      child: const Text(
-                        '회원가입',
-                        style: TextStyle(
-                          color: Color(0xff458017),
-                        ),
+                        onPressed: () => Get.to(() => const SignUp()),
                       ),
-                      onPressed: () => Get.to(() => const SignUp()),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

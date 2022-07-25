@@ -37,20 +37,15 @@ class _my_pageState extends State<my_page> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Image.asset(
-            'assets/top_bar_logo.png',
-            width: 100.w,
-            height: 48.h,
-          ),
-          elevation: 5,
+          elevation: 0,
           backgroundColor: Colors.white,
           actions: [
             IconButton(
               onPressed: () {
                 Get.to(setting_page(
-                    // getName: '',
-                    // getEmail: '',
-                    ));
+                  getName: '',
+                  getEmail: '',
+                ));
               },
               icon: const Icon(
                 Icons.settings_sharp,

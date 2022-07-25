@@ -17,12 +17,7 @@ class _plant_pageState extends State<plant_page> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Image.asset(
-          'assets/top_bar_logo.png',
-          width: 100.w,
-          height: 48.h,
-        ),
-        elevation: 5,
+        elevation: 0,
         backgroundColor: Colors.white,
         actions: [
           IconButton(
