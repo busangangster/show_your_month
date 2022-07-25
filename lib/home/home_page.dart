@@ -161,8 +161,10 @@ class home_pageState extends State<home_page> {
                  children: [
                    Text("오늘은",style: TextStyle(fontSize: 12.sp)),
                    Text("${today_Date} 일",style: TextStyle(fontSize: 32.sp,fontWeight: FontWeight.bold),),
-                   SizedBox(height: 54.h,),
+                   SizedBox(height: 46.h,),
                    Text("할 일을 차근차근 해보아요 !",style: TextStyle(fontSize: 12.sp)),
+                   SizedBox(height: 20.h,),
+
                    Container(
                      height: 400.h,
                      child: StreamBuilder(
@@ -174,7 +176,32 @@ class home_pageState extends State<home_page> {
                              itemBuilder: (context, index) {
                                final DocumentSnapshot documentSnapshot =
                                streamSnapshot.data!.docs[index];
-                               return Card(
+                               return Container(
+                                 height: 74.h,
+
+                                 decoration: BoxDecoration(
+                              color: Colors.white,
+                                   boxShadow: [
+                                     BoxShadow(
+                                       color: Colors.black.withOpacity(0.03),
+                                       blurRadius: 17.0, // soften the shadow
+                                       spreadRadius: 0, //extend the shadow
+                                       offset: Offset(
+                                         8.72, // Move to right 10  horizontally
+                                         4.9, // Move to bottom 10 Vertically
+                                       ),
+                                     )
+                                   ],
+
+                                   border: Border.all(
+                                     color: Color(0xffF0F0F0)
+                                   ),
+                                   borderRadius: BorderRadius.all(
+                                     Radius.circular(12),
+
+                                   ),
+                                 ),
+
 
                                  child: ListTile(
                                    title: Text(documentSnapshot['name']),
@@ -211,7 +238,7 @@ class home_pageState extends State<home_page> {
               Column(
 
                 children: [
-                  SizedBox(height: 570.h,),
+                  SizedBox(height: 520.h,),
                   FloatingActionButton(
                       onPressed: () => _create(),
                       child: const Icon(Icons.add),
